@@ -51,6 +51,16 @@ public class MainActivity extends BaseActivity {
 //                실제로 전달할 자료 (첨부자료)
                 intent.putExtra("fileName","왕좌의게임시즌7E01.avi");
 
+//                지금 쏘는 이방송은, 정지되어있는 앱들에게도 전파.
+
+//                intent.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
+
+
+//                동적 리시버만 방송을 수신할 수 있도록 제한
+                intent.addFlags(intent.FLAG_RECEIVER_REGISTERED_ONLY);
+
+
+
 //                실제로 방송 진행
 
                 new Handler().postDelayed(new Runnable() {
