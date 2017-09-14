@@ -2,17 +2,20 @@ package kr.co.tjeit.broadcast;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 
 public class MainActivity extends BaseActivity {
 
     private android.widget.Button sendDownloadCompleteBtn;
+    private Button intentBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         bindViews();
         setupEvents();
         setValues();
@@ -20,13 +23,21 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public void setupEvents() {
+        intentBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(mContext, BroadcastActivity.class);
+                startActivity(intent);
+            }
+        });
+
         sendDownloadCompleteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 //                다운로드 완료 버튼을 누르면
 //                왕좌의 게임이 다운로드 완료되었다 라고 "방송"
 
-                Intent intent = new Intent();
+                final Intent intent = new Intent();
 //                어떠한 상황인지 알려주는 내용
 
 //                방송 내용 작성 요령
@@ -41,7 +52,14 @@ public class MainActivity extends BaseActivity {
                 intent.putExtra("fileName","왕좌의게임시즌7E01.avi");
 
 //                실제로 방송 진행
-                sendBroadcast(intent);
+
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        sendBroadcast(intent);
+                    }
+                }, 5000);
+
 
             }
         });
@@ -55,6 +73,7 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public void bindViews() {
+        this.intentBtn = (Button) findViewById(R.id.intentBtn);
         this.sendDownloadCompleteBtn = (Button) findViewById(R.id.sendDownloadCompleteBtn);
 
     }

@@ -12,5 +12,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="다운로드 완료 방송하기"/>
+    <Button
+        android:id="@+id/intentBtn"
+        android:text="방송수신화면이동"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
 </LinearLayout>
